@@ -17,19 +17,20 @@ public class QuestionController {
 
     private final QuestionService questionService;
 
-    @GetMapping("")
-    public ResponseEntity<List<QuestionDto>> getQuestionList() {
+    @GetMapping("/list")
+    public ResponseEntity<List<QuestionDto>> getQuestionListWithRandomOrder() {
         List<QuestionDto> questions = questionService.findQuestions();
         return new ResponseEntity<>(questions, HttpStatus.OK);
     }
 
-    @GetMapping("{question_id}")
-    public ResponseEntity<QuestionDto> getQuestion(@PathVariable("question_id") Long questionId){
-        QuestionDto questionDto = questionService.findQuestionByQuestionId(questionId);
-        if(questionDto != null){
-            return new ResponseEntity<>(questionDto,HttpStatus.OK);
+    @PostMapping("")
+    public ResponseEntity<Long> register(@RequestBody QuestionDto questionDto) {
+        Long registerId = questionService.register(questionDto);
+        if (registerId != null) {
+            return new ResponseEntity<>(registerId, HttpStatus.OK);
         }
-        else return new ResponseEntity<>(null,HttpStatus.FORBIDDEN);
+        else {
+            return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
+        }
     }
-
 }

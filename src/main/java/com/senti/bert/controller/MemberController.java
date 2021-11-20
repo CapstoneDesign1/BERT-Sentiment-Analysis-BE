@@ -16,19 +16,20 @@ public class MemberController {
 
     @GetMapping("/check/{user_id}")
     public ResponseEntity<Boolean> checkUserIdDuplicate(@PathVariable("user_id") String userId){
-        return ResponseEntity.ok(memberService.checkUserIdDuplicate(userId));
-        // true가 나오면 중복임
+        return new ResponseEntity<>(memberService.checkUserIdDuplicate(userId), HttpStatus.OK);
     }
 
     @PostMapping("")
     public ResponseEntity<Long> registerMember(@RequestBody MemberDto memberDto){
-        if(memberService.register(memberDto) != null){
-            return new ResponseEntity<>(memberDto.getId(), HttpStatus.OK);
+        Long registerId = memberService.register(memberDto);
+        if (registerId != null){
+            return new ResponseEntity<>(registerId, HttpStatus.OK);
         }
         else {
             return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
         }
     }
+
     /*
     TODO:: flask 통신하여 점수 계산 로직
      */
