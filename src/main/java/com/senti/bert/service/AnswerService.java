@@ -26,8 +26,15 @@ public class AnswerService {
         return null;
     }
 
+    @Transactional
     public List<AnswerDto> getUserAnswerList(String userId) {
         List<Answer> byUserId = answerRepository.findByUserId(userId);
         return byUserId.stream().map(Answer::toDto).collect(Collectors.toList());
+    }
+
+    @Transactional
+    public AnswerDto getUserAnswerByQuestionId(String userId, Long questionId){
+        Answer answer = answerRepository.findByUserIdAndQuestionId(userId, questionId);
+        return Answer.toDto(answer);
     }
 }

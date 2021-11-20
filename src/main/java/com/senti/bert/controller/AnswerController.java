@@ -33,4 +33,9 @@ public class AnswerController {
         return new ResponseEntity<>(userAnswerList, HttpStatus.OK);
     }
 
+    @GetMapping("/{user_id}/{question_id}")
+    public ResponseEntity<AnswerDto> getUserAnswerByQuestionId(@PathVariable("user_id") String userId, @PathVariable("question_id") Long questionId){
+        AnswerDto answerDto = answerService.getUserAnswerByQuestionId(userId,questionId);
+        return new ResponseEntity<>(answerDto,HttpStatus.OK);
+    }
 }
