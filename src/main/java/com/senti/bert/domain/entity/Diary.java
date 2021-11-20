@@ -1,8 +1,10 @@
 package com.senti.bert.domain.entity;
 
+import com.senti.bert.dto.DiaryDto;
 import lombok.*;
 
 import javax.persistence.*;
+import java.util.List;
 
 @NoArgsConstructor
 @Entity
@@ -19,9 +21,33 @@ public class Diary extends BaseEntity {
     private String userId;
 
     @Column
-    private Long answerId;
+    private String answer1;
 
     @Column
-    private Long questionId;
+    private String answer2;
 
+    @Column
+    private String answer3;
+
+    @Column
+    private String answer4;
+
+    @Column
+    private String answer5;
+
+    @Column
+    private String questionIdList;
+
+    public static DiaryDto toDto(Diary diary) {
+        return DiaryDto.builder()
+                .id(diary.getId())
+                .userId(diary.getUserId())
+                .answer1(diary.getAnswer1())
+                .answer2(diary.getAnswer2())
+                .answer3(diary.getAnswer3())
+                .answer4(diary.getAnswer4())
+                .answer5(diary.getAnswer5())
+                .questionIdList(diary.getQuestionIdList())
+                .build();
+    }
 }

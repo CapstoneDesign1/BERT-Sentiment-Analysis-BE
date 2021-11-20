@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Builder
 @Data
-public class QuestionDto {
+public class QuestionDto implements Comparable<QuestionDto> {
     private Long id;
     private String content;
 
@@ -15,5 +15,10 @@ public class QuestionDto {
                 .id(questionDto.getId())
                 .content(questionDto.getContent())
                 .build();
+    }
+
+    @Override
+    public int compareTo(QuestionDto questionDto) {
+        return this.id.compareTo(questionDto.getId());
     }
 }
