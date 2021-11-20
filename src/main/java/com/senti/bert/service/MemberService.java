@@ -16,7 +16,7 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class MemberService implements UserDetailsService {
+public class MemberService /*implements UserDetailsService*/ {
     private final MemberRepository memberRepository;
 
     private final PasswordEncoder passwordEncoder;
@@ -39,10 +39,12 @@ public class MemberService implements UserDetailsService {
         System.out.println(memberRepository.existsByUserId(userId));*/
         return memberRepository.existsByUserId(userId);
     }
-
+/*
     @Transactional
     public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
         Member member = memberRepository.findByUserId(userId);
         return new User(member.getUserId(),member.getPassword(),null);
     }
+
+ */
 }

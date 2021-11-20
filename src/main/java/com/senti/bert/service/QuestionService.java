@@ -7,6 +7,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -19,15 +21,22 @@ public class QuestionService {
 
     @Transactional
     public List<QuestionDto> findQuestions() {
-        return questionRepository.findAll()
-                .stream()
-                .map(Question::toDto)
-                .collect(Collectors.toList());
+        List<Question> allQuestionList = questionRepository.findAll();
+        Collections.shuffle(allQuestionList);
+        List<Question> questions = allQuestionList.subList(0, 5);
+        List<QuestionDto> questionDtoList = questions.stream().map(Question::toDto).collect(Collectors.toList());
+        Collections.sort(questionDtoList);
+        return questionDtoList;
     }
 
     @Transactional
-    public QuestionDto findQuestionByQuestionId(Long id){
-        Optional<Question> question = questionRepository.findById(id);
-        return Question.toDto(question.get());
+    public Long register(QuestionDto questionDto) {
+        if (questionDto != null) {
+            Question question = QuestionDto.toEntity(questionDto);
+            questionRepository.save(question);
+            return question.getId();
+        }
+        return null;
     }
+
 }
