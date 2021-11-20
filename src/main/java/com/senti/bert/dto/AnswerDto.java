@@ -12,7 +12,7 @@ public class AnswerDto {
     private Long diaryId;
     private Long questionId;
     private String userId;
-
+    private Long day;
     public static Answer toEntity(AnswerDto answerDto) {
         return Answer.builder()
                 .id(answerDto.getId())
