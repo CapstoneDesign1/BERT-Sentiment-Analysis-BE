@@ -4,7 +4,6 @@ import com.senti.bert.domain.entity.Diary;
 import lombok.Builder;
 import lombok.Data;
 
-import javax.persistence.Column;
 import java.util.List;
 
 @Data
