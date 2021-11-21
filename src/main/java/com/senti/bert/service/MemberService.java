@@ -16,9 +16,8 @@ import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
-public class MemberService /*implements UserDetailsService*/ {
+public class MemberService {
     private final MemberRepository memberRepository;
-
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
@@ -27,7 +26,6 @@ public class MemberService /*implements UserDetailsService*/ {
             Member member = MemberDto.toEntity(memberDto);
             member.setPassword(passwordEncoder.encode(member.getPassword()));
             memberRepository.save(member);
-
             return member.getId();
         }
         else return null;
@@ -35,16 +33,6 @@ public class MemberService /*implements UserDetailsService*/ {
 
     @Transactional
     public boolean checkUserIdDuplicate(String userId){
-        /*System.out.println(userId);
-        System.out.println(memberRepository.existsByUserId(userId));*/
         return memberRepository.existsByUserId(userId);
     }
-/*
-    @Transactional
-    public UserDetails loadUserByUsername(String userId) throws UsernameNotFoundException {
-        Member member = memberRepository.findByUserId(userId);
-        return new User(member.getUserId(),member.getPassword(),null);
-    }
-
- */
 }
