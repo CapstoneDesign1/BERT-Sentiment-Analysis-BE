@@ -38,6 +38,10 @@ public class Diary extends BaseEntity {
     @Column
     private String questionIdList;
 
+    @Column
+    @Enumerated(EnumType.STRING)
+    private EmotionType emotionType;
+
     public static DiaryDto toDto(Diary diary) {
         return DiaryDto.builder()
                 .id(diary.getId())
@@ -48,6 +52,8 @@ public class Diary extends BaseEntity {
                 .answer4(diary.getAnswer4())
                 .answer5(diary.getAnswer5())
                 .questionIdList(diary.getQuestionIdList())
+                .createdDate(diary.getCreatedDate())
+                .emotionType(diary.getEmotionType())
                 .build();
     }
 }

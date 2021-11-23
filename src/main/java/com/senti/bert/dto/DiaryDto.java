@@ -1,9 +1,11 @@
 package com.senti.bert.dto;
 
 import com.senti.bert.domain.entity.Diary;
+import com.senti.bert.domain.entity.EmotionType;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -17,6 +19,8 @@ public class DiaryDto {
     private String answer4;
     private String answer5;
     private String questionIdList;
+    private LocalDateTime createdDate;
+    private EmotionType emotionType;
 
     private List<QuestionDto> questionDtoList;
 
@@ -30,6 +34,7 @@ public class DiaryDto {
                 .answer4(diaryDto.getAnswer4())
                 .answer5(diaryDto.getAnswer5())
                 .questionIdList(diaryDto.getQuestionIdList())
+                .emotionType(diaryDto.getEmotionType())
                 .build();
     }
 }

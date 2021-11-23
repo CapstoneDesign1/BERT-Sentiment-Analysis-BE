@@ -36,6 +36,17 @@ public class DiaryController {
         }
     }
 
+    @GetMapping("/total/{user_id}")
+    public ResponseEntity<Integer> getTotalDiaryCount(@PathVariable("user_id") String userId) {
+        Integer totalCount = diaryService.getTotalCountByUserId(userId);
+        return new ResponseEntity<>(totalCount, HttpStatus.OK);
+    }
+
+    @GetMapping("/check/{user_id}")
+    public ResponseEntity<Boolean> checkDiary(@PathVariable("user_id") String userId) {
+        return new ResponseEntity<>(diaryService.checkDiary(userId), HttpStatus.OK);
+    }
+
     @PostMapping("")
     public ResponseEntity<Long> register(@RequestBody DiaryDto diaryDto) {
         Long registerId = diaryService.create(diaryDto);
@@ -44,6 +55,12 @@ public class DiaryController {
         } else {
             return new ResponseEntity<>(null, HttpStatus.FORBIDDEN);
         }
+    }
+
+    @GetMapping("/analysis/{diary_id}")
+    public ResponseEntity<Void> analysisDiary(@PathVariable("diary_id") Long diaryId) {
+        diaryService.analysisDiaryResult(diaryId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/{diary_id}")
