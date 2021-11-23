@@ -48,6 +48,7 @@ public class Diary extends BaseEntity {
                 .answer4(diary.getAnswer4())
                 .answer5(diary.getAnswer5())
                 .questionIdList(diary.getQuestionIdList())
+                .createdDate(diary.getCreatedDate())
                 .build();
     }
 }

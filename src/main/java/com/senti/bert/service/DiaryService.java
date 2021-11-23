@@ -39,6 +39,11 @@ public class DiaryService {
     }
 
     @Transactional
+    public Integer getTotalCountByUserId(String userId) {
+        return diaryRepository.findByUserId(userId).size();
+    }
+
+    @Transactional
     public DiaryDto findOne(Long diaryId) {
         Optional<Diary> findDiary = diaryRepository.findById(diaryId);
         if (findDiary.isPresent()) {

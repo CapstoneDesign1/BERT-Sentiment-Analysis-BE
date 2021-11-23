@@ -4,6 +4,7 @@ import com.senti.bert.domain.entity.Diary;
 import lombok.Builder;
 import lombok.Data;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -17,6 +18,7 @@ public class DiaryDto {
     private String answer4;
     private String answer5;
     private String questionIdList;
+    private LocalDateTime createdDate;
 
     private List<QuestionDto> questionDtoList;
 

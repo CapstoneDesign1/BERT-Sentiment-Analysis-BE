@@ -36,6 +36,12 @@ public class DiaryController {
         }
     }
 
+    @GetMapping("/total/{user_id}")
+    public ResponseEntity<Integer> getTotalDiaryCount(@PathVariable("user_id") String userId) {
+        Integer totalCount = diaryService.getTotalCountByUserId(userId);
+        return new ResponseEntity<>(totalCount, HttpStatus.OK);
+    }
+
     @PostMapping("")
     public ResponseEntity<Long> register(@RequestBody DiaryDto diaryDto) {
         Long registerId = diaryService.create(diaryDto);
