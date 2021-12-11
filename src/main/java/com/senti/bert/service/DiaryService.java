@@ -97,8 +97,12 @@ public class DiaryService {
                         BigDecimal bigDecimal = new BigDecimal(number);
                         decimalList.add(bigDecimal);
                     }
+
                     for (int i=0; i<6; i++) {
                         BigDecimal bigDecimal = resArray.get(i);
+                        if (i == 3 && decimalList.get(i).compareTo(BigDecimal.ZERO) < 0) {
+                            continue;
+                        }
                         resArray.set(i, bigDecimal.add(decimalList.get(i)));
                     }
                 } catch (Exception e) {
@@ -108,14 +112,19 @@ public class DiaryService {
             BigDecimal max = Collections.max(resArray);
             int i = resArray.indexOf(max);
             EmotionType emotionType = emotionUtil.getEmotionType(i);
+            BigDecimal happyAverage = resArray.get(0).divide(BigDecimal.valueOf(2), RoundingMode.UP);
+            if (happyAverage.compareTo(BigDecimal.ZERO) > 0) {
+                resArray.set(3, resArray.get(3).subtract(happyAverage));
+            }
+
             DiaryResult diaryResult = DiaryResult.builder()
                     .diaryId(diary.getId())
-                    .result1(resArray.get(0).divide(BigDecimal.valueOf(5), RoundingMode.UNNECESSARY))
-                    .result2(resArray.get(1).divide(BigDecimal.valueOf(5), RoundingMode.UNNECESSARY))
-                    .result3(resArray.get(2).divide(BigDecimal.valueOf(5), RoundingMode.UNNECESSARY))
-                    .result4(resArray.get(3).divide(BigDecimal.valueOf(5), RoundingMode.UNNECESSARY))
-                    .result5(resArray.get(4).divide(BigDecimal.valueOf(5), RoundingMode.UNNECESSARY))
-                    .result6(resArray.get(5).divide(BigDecimal.valueOf(5), RoundingMode.UNNECESSARY))
+                    .result1(resArray.get(0).divide(BigDecimal.valueOf(5), RoundingMode.UP))
+                    .result2(resArray.get(1).divide(BigDecimal.valueOf(5), RoundingMode.UP))
+                    .result3(resArray.get(2).divide(BigDecimal.valueOf(5), RoundingMode.UP))
+                    .result4(resArray.get(3).divide(BigDecimal.valueOf(5), RoundingMode.UP))
+                    .result5(resArray.get(4).divide(BigDecimal.valueOf(5), RoundingMode.UP))
+                    .result6(resArray.get(5).divide(BigDecimal.valueOf(5), RoundingMode.UP))
                     .emotionType(emotionType)
                     .build();
             diary.setEmotionType(emotionType);

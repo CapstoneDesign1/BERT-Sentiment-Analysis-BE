@@ -15,4 +15,5 @@ import java.math.BigDecimal;
 public class ResultDto {
     private EmotionType emotionType;
     private BigDecimal sadScore;
+    private Long depress;
 }
