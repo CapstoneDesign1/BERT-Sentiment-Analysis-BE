@@ -108,6 +108,10 @@ public class DiaryService {
             BigDecimal max = Collections.max(resArray);
             int i = resArray.indexOf(max);
             EmotionType emotionType = emotionUtil.getEmotionType(i);
+            if (resArray.get(0).compareTo(BigDecimal.ZERO) > 0) {
+                resArray.set(3, resArray.get(3).subtract(resArray.get(0)));
+            }
+
             DiaryResult diaryResult = DiaryResult.builder()
                     .diaryId(diary.getId())
                     .result1(resArray.get(0).divide(BigDecimal.valueOf(5), RoundingMode.UNNECESSARY))

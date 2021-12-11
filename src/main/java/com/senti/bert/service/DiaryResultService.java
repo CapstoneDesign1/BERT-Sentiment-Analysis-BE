@@ -52,7 +52,6 @@ public class DiaryResultService {
         BigDecimal max = Collections.max(resultList);
         int i = resultList.indexOf(max);
         BigDecimal sadScore = resultList.get(3);
-        log.info(sadScore.toString());
         if (sadScore.compareTo(BigDecimal.ZERO) < 0) {
             sadScore = BigDecimal.ZERO;
         }
@@ -64,7 +63,6 @@ public class DiaryResultService {
                 sadScore = BigDecimal.ZERO;
             }
         }
-        log.info(sadScore + " change");
         EmotionType emotionType = emotionUtil.getEmotionType(i);
         return ResultDto.builder()
                 .emotionType(emotionType)
